@@ -1,0 +1,210 @@
+/*Fondo General */
+.stApp {
+    background-color: #ffffff;
+}
+
+/* Panel Derecho */
+[data-testid="stMain"] {
+    background-color: #ffffff;
+}
+
+[data-testid="stMainBlockContainer"] {
+    background-color: #ffffff;
+    max-width: 100%;
+    padding: 2rem 3rem 5rem 3rem;
+    margin: 0;
+    border-radius: 0;
+}
+
+/* Título y descripción */
+[data-testid="stMainBlockContainer"] h1 {
+    color: #dc2626 !important;
+    font-weight: 700;
+}
+
+[data-testid="stMainBlockContainer"] p {
+    color: #334155 !important;
+}
+
+/* SideBar Izquierdo */
+[data-testid="stSidebar"] {
+    background-color: #dc2626 !important;
+    border-right: none;
+}
+
+[data-testid="stSidebar"] > div:first-child {
+    background-color: #dc2626 !important;
+}
+
+/* Textos del sidebar */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] li,
+[data-testid="stSidebar"] .stMarkdown {
+    color: #ffffff !important;
+}
+
+/* Separadores del sidebar */
+[data-testid="stSidebar"] hr {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* ===== SELECTBOX EN ROJO ===== */
+[data-testid="stSidebar"] [data-baseweb="select"],
+[data-testid="stSidebar"] [data-baseweb="select"] > div {
+    background-color: #991b1b !important; /* Rojo más intenso/oscuro para contrastar con el fondo */
+    border: 1.5px solid #ffffff !important; /* Borde blanco nítido */
+    border-radius: 8px !important;
+}
+
+/* Texto del selectbox */
+[data-testid="stSidebar"] [data-baseweb="select"] * {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+}
+
+/* Menú desplegable del selectbox */
+div[data-baseweb="popover"],
+div[data-baseweb="popover"] > div,
+div[data-baseweb="menu"],
+ul[role="listbox"] {
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
+}
+
+ul[role="listbox"] li,
+div[data-baseweb="menu"] li {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+}
+
+ul[role="listbox"] li:hover,
+div[data-baseweb="menu"] li:hover {
+    background-color: #fee2e2 !important;
+    color: #dc2626 !important;
+}
+
+/* Mensajes de chat */
+[data-testid="stChatMessage"] {
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+/* Forzar todo el texto del chat a negro/oscuro (evita texto blanco invisible) */
+[data-testid="stChatMessage"],
+[data-testid="stChatMessage"] p,
+[data-testid="stChatMessage"] span,
+[data-testid="stChatMessage"] div,
+[data-testid="stChatMessage"] li,
+[data-testid="stChatMessage"] ul,
+[data-testid="stChatMessage"] ol,
+[data-testid="stChatMessage"] strong,
+[data-testid="stChatMessage"] b,
+[data-testid="stChatMessage"] em,
+[data-testid="stChatMessage"] td,
+[data-testid="stChatMessage"] th,
+[data-testid="stChatMessage"] h1,
+[data-testid="stChatMessage"] h2,
+[data-testid="stChatMessage"] h3,
+[data-testid="stChatMessage"] h4,
+[data-testid="stChatMessage"] .stMarkdown,
+[data-testid="stChatMessage"] .stMarkdown * {
+    color: #0f172a !important;
+}
+
+/* Mensaje del usuario */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+    background-color: #fff7f7 !important;
+    border-color: #fecaca !important;
+}
+
+/* Mensaje del asistente */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Código dentro del chat */
+[data-testid="stChatMessage"] code {
+    color: #b91c1c !important;
+    background-color: #f1f5f9 !important;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+
+/* ===== TABLAS ===== */
+.stDataFrame {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+/* ===== BARRA SUPERIOR ===== */
+[data-testid="stHeader"],
+[data-testid="stToolbar"] {
+    background-color: #ffffff !important;
+}
+
+[data-testid="stHeader"] button,
+[data-testid="stHeader"] svg {
+    color: #1f2937 !important;
+    fill: #1f2937;
+}
+
+/* ===== CONTORNO INFERIOR DEL CHAT (BLANCO) ===== */
+[data-testid="stBottom"],
+[data-testid="stBottom"] > div,
+[data-testid="stBottomBlockContainer"],
+.stChatFloatingInputContainer {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    border-top: none !important;
+}
+
+[data-testid="stBottom"]::before,
+[data-testid="stBottom"]::after {
+    display: none !important;
+    background: #ffffff !important;
+}
+
+/* InputText Label */
+[data-testid="stChatInput"] {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #cbd5e1 !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 9px;
+}
+
+/* Área de textarea donde el usuario escribe */
+[data-testid="stChatInput"] textarea {
+    background-color: #f1f5f9 !important; /* Fondo gris */
+    color: #0f172a !important; /* Texto negro */
+    border: none !important;
+}
+
+[data-testid="stChatInput"] textarea::placeholder {
+    color: #64748b !important; /* Placeholder legible */
+}
+
+[data-testid="stChatInput"] textarea:focus {
+    border-color: #1923b6 !important;
+}
+
+/* Botón de enviar dentro del chat input */
+[data-testid="stChatInput"] button {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+    border-radius: 8px !important;
+}
+
+[data-testid="stChatInput"] button svg {
+    fill: #0f172a !important;
+}
