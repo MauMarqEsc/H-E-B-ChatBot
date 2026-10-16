@@ -80,10 +80,11 @@ with st.sidebar:
     st.subheader("🎯 Pruebas del BRIEF (Req. #4)")
     st.caption("Haz clic en una prueba oficial para evaluar la precisión del asistente:")
     benchmarks = get_benchmark_questions()
-    for item in benchmarks:
-        if st.button(f"{item['categoria']}", key=f"btn_{item['id']}", use_container_width=True):
-            st.session_state.pending_prompt = item["pregunta"]
-            st.rerun()
+    with st.container(key="brief-benchmark-buttons"):
+        for item in benchmarks:
+            if st.button(f"{item['categoria']}", key=f"btn_{item['id']}", use_container_width=True):
+                st.session_state.pending_prompt = item["pregunta"]
+                st.rerun()
 
     st.markdown("---")
     # Estado de Bases de Datos

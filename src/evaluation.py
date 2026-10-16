@@ -49,7 +49,7 @@ BENCHMARK_QUESTIONS = [
     },
     {
         "id": "limite_no_alucinacion",
-        "categoria": "🛡️ Límite / Anti-alucinación",
+        "categoria": "🛡️ Falta de Información / Validación",
         "pregunta": "¿Cuánto vendió la sucursal Valle Norte en enero de 2024?",
         "objetivo": "Validar que reconozca que no tiene esos datos (el periodo registrado es exclusivamente junio-agosto 2026).",
         "tablas": ["Ninguna (fuera de alcance)"]

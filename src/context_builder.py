@@ -17,7 +17,6 @@ from src.data_engine import (
 )
 from src.policy_search import search_in_policies
 
-
 def detect_store_id(prompt: str) -> str | None:
     """
     Detecta si la consulta hace referencia a una tienda específica por código o nombre.
@@ -40,13 +39,12 @@ def detect_store_id(prompt: str) -> str | None:
             return s_id
     return None
 
-
 def build_json_context(prompt: str, df_stores, df_catalog, df_sales, df_inventory, df_tickets) -> tuple[str, dict]:
     """
     Construye el contexto en formato JSON según la intención de la pregunta.
     Retorna:
     - context_str (str): Cadena formateada en JSON para inyectar en el prompt.
-    - raw_payload (dict): Diccionario crudo para visualización o telemetría en UI.
+    - raw_payload (dict): Diccionario crudo para visualización en UI.
     """
     p_lower = prompt.lower()
     target_store = detect_store_id(prompt)

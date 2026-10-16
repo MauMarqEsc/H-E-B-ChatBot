@@ -95,7 +95,7 @@ def fetch_openrouter(user_prompt: str, data_context: str, api_key: str = None, p
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_payload}
         ],
-        "temperature": 0.1
+        "temperature": 0.1 # Gestionamos el nivel de divagacion/alucinamiento.
     }
 
     start_time = time.time()

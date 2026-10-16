@@ -10,10 +10,8 @@ Ejecuta agregaciones y cruces relacionales entre las 5 tablas de H-E-B México:
 Produce estructuras JSON compactas, estructuradas y estrictamente tipadas
 para alimentar al modelo LLM sin pérdida de contexto ni distorsiones de formato.
 """
-
 import json
 import pandas as pd
-
 
 def get_stores_json(df_stores, store_id=None) -> dict:
     """
@@ -52,11 +50,12 @@ def get_sales_and_surface_json(df_sales, df_stores, store_id=None) -> dict:
     """
     if df_sales is None or df_stores is None:
         return {"error": "Datos de ventas o tiendas no disponibles"}
-
+    
     sales = df_sales.copy()
     if store_id:
         sales = sales[sales["tienda_id"].str.upper() == store_id.upper()]
 
+    #---- Valores Calculados: ----#
     grouped = sales.groupby("tienda_id").agg(
         venta_neta_total_mxn=("venta_neta_mxn", "sum"),
         unidades_totales=("unidades", "sum"),
@@ -66,6 +65,8 @@ def get_sales_and_surface_json(df_sales, df_stores, store_id=None) -> dict:
 
     # Cruce con tiendas para traer m2, formato, ciudad y estado
     merged = grouped.merge(df_stores, on="tienda_id")
+
+    #---- Valor Calculado: Ventas por m2 ----#
     merged["venta_por_m2"] = merged["venta_neta_total_mxn"] / merged["m2"]
     merged = merged.sort_values(by="venta_neta_total_mxn", ascending=False)
 
@@ -89,6 +90,7 @@ def get_sales_and_surface_json(df_sales, df_stores, store_id=None) -> dict:
         ventas_totales_mxn=("venta_neta_total_mxn", "sum"),
         m2_totales=("m2", "sum")
     ).reset_index()
+    #---- Valor Calculado: Venta Promeido por m2 ----#
     format_summary["venta_promedio_por_m2"] = format_summary["ventas_totales_mxn"] / format_summary["m2_totales"]
 
     formats = []
@@ -104,13 +106,8 @@ def get_sales_and_surface_json(df_sales, df_stores, store_id=None) -> dict:
         "analisis": "relacion_superficie_y_ventas",
         "periodo": "2026-06-01 a 2026-08-31",
         "resumen_por_tienda": stores_analysis,
-        "comparativa_por_formato": formats,
-        "conclusiones_clave": [
-            "Supermercados (T01 y T02, ~4,000 m2) lideran en volumen absoluto de ventas ($5.6M - $6.4M MXN).",
-            "Mi Tienda (T03 y T04, ~1,400 m2) lideran en eficiencia por m2 (~$1,800 - $1,847 MXN/m2 vs ~$1,500 MXN/m2 en Supermercados), siendo 20% más rentables por metro cuadrado."
-        ]
+        "comparativa_por_formato": formats
     }
-
 
 def get_sales_by_category_json(df_sales, df_catalog, store_id=None) -> dict:
     """
@@ -127,14 +124,16 @@ def get_sales_by_category_json(df_sales, df_catalog, store_id=None) -> dict:
     merged = sales.merge(df_catalog[["sku", "categoria", "nombre"]], on="sku")
     total_sales_all = merged["venta_neta_mxn"].sum()
 
-    cat_grouped = merged.groupby("categoria").agg(
+    # Se agrupan las ventas por categoria
+    category_grouped = merged.groupby("categoria").agg(
         venta_neta_mxn=("venta_neta_mxn", "sum"),
         unidades_vendidas=("unidades", "sum")
     ).reset_index().sort_values(by="venta_neta_mxn", ascending=False)
 
     categories = []
-    for _, row in cat_grouped.iterrows():
+    for _, row in category_grouped.iterrows():
         v = float(row["venta_neta_mxn"])
+        #---- Valor Calculado: Porcentaje del total de ventas ----#
         pct = (v / total_sales_all * 100) if total_sales_all > 0 else 0
         categories.append({
             "categoria": str(row["categoria"]),
@@ -197,6 +196,7 @@ def get_critical_inventory_json(df_inventory, df_catalog, df_stores, store_id=No
         inv = inv[inv["tienda_id"].str.upper() == store_id.upper()]
 
     critical = inv[inv["existencia"] <= inv["punto_reorden"]].copy()
+    #---- Valor Calculado: Deficit; Cuantas unidades existen respecto al punto de ----#
     critical["deficit"] = critical["punto_reorden"] - critical["existencia"]
     critical = critical.sort_values(by="deficit", ascending=False)
 
@@ -296,6 +296,7 @@ def get_tickets_json(df_tickets, df_stores, text_filter="", store_id=None, categ
     if estado:
         tickets = tickets[tickets["estado"].str.lower() == estado.lower()]
 
+    # Se aplica la  mascara en torno a lo que el usuario preguntó
     if text_filter:
         mask = (
             tickets["titulo"].astype(str).str.contains(text_filter, case=False, na=False) |
@@ -335,7 +336,8 @@ def get_executive_overview_json(df_stores, df_catalog, df_sales, df_inventory, d
     """
     if any(df is None for df in [df_stores, df_catalog, df_sales, df_inventory, df_tickets]):
         return {"error": "Datasets incompletos"}
-
+    
+    # Valores Calculados:
     total_sales = float(df_sales["venta_neta_mxn"].sum())
     total_m2 = int(df_stores["m2"].sum())
     avg_efficiency = total_sales / total_m2 if total_m2 > 0 else 0

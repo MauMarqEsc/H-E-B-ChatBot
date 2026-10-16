@@ -53,7 +53,7 @@
     border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* ===== SELECTBOX EN ROJO ===== */
+/* Select Box Rojo */
 [data-testid="stSidebar"] [data-baseweb="select"],
 [data-testid="stSidebar"] [data-baseweb="select"] > div {
     background-color: #991b1b !important; /* Rojo más intenso/oscuro para contrastar con el fondo */
@@ -87,6 +87,30 @@ div[data-baseweb="menu"] li:hover {
     background-color: #fee2e2 !important;
     color: #dc2626 !important;
 }
+
+/* Botones de Brief #4 */
+.st-key-brief-benchmark-buttons .stButton > button {
+    background-color: #f63434 !important;
+    color: #ffffff !important;
+    border: 1px solid #f63434 !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 0.65rem 1rem !important;
+    border-color: 0.2s ease;
+    transform: 0.2 ease;
+}
+
+.st-key-brief-benchmark-buttons .stButton > button:hover {
+    background-color: #991b1b !important;
+    border-color: #991b1b !important;
+    color: #ffffff !important;
+}
+
+.st-key-brief-benchmark-buttons .stButton >button:active {
+    background-color: #7f1d1d !important;
+    transform: scale(0.99);
+}
+
 
 /* Mensajes de chat */
 [data-testid="stChatMessage"] {
@@ -183,7 +207,7 @@ div[data-baseweb="menu"] li:hover {
     border-radius: 9px;
 }
 
-/* Área de textarea donde el usuario escribe */
+/* INput text area donde el usuario escribe */
 [data-testid="stChatInput"] textarea {
     background-color: #f1f5f9 !important; /* Fondo gris */
     color: #0f172a !important; /* Texto negro */

@@ -45,6 +45,7 @@ def search_in_policies(question):
     if not words:
         words = [w.lower().strip("?,.!:;\"'") for w in question.split() if len(w) > 2]
     
+    # Se gestiona que pagina de que archivo tiene mas coincidencia con la pregunta del usuario
     scored = []
     for p in pages:
         p_text_lower = p["content"].lower()
